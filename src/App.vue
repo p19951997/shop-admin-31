@@ -27,7 +27,7 @@ export default {
     // })
 
     this.$axios({
-      url:'https:api.github.com/users',
+      url: "https://api.github.com/users",
       method:'GET',
     }).then(res => {
       console.log(res);

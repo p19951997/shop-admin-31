@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 
 //element:1.导入组件
-import Element from 'element-ui';
+import ElementUI from 'element-ui';
 //element的样式
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -19,6 +19,7 @@ const routes = [
 
 // 路由实例
 const router = new VueRouter({ routes })
+
 Vue.prototype.$axios = axios;
 
 //element:2.注册element插件
