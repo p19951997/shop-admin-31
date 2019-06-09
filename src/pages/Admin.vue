@@ -10,7 +10,10 @@
         <Header @click="handleChangeShow"/>
       </el-header>
 
-      <el-main>Main</el-main>
+      <el-main>
+        <Mianbao/>
+        Main
+      </el-main>
     </el-container>
 
   </el-container>
@@ -20,6 +23,7 @@
 
   import Menu from '../components/Menu.vue'
   import Header from '../components/Header.vue'
+  import Mianbao from '../components/Mianbao.vue'
 
 
 export default {
@@ -31,6 +35,7 @@ export default {
   components:{
     Menu,
     Header,
+    Mianbao
   },
   methods:{
     handleChangeShow(){
