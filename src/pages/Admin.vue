@@ -1,19 +1,50 @@
 <template>
   <el-container>
       
-    <el-aside width="200px">Aside</el-aside>
+    <el-aside width="auto">
+      <Menu :isShow='isShow'/>
+    </el-aside>
+
     <el-container>
-      <el-header>Header</el-header>
+      <el-header>
+        <Header @click="handleChangeShow"/>
+      </el-header>
+
       <el-main>Main</el-main>
     </el-container>
+
   </el-container>
 </template>
 
 <script>
-export default {};
+
+  import Menu from '../components/Menu.vue'
+  import Header from '../components/Header.vue'
+
+
+export default {
+  data(){
+    return {
+      isShow:true,
+    }
+  },
+  components:{
+    Menu,
+    Header,
+  },
+  methods:{
+    handleChangeShow(){
+      this.isShow = !this.isShow;
+    }
+  }
+};
 </script>
 
 <style>
+*{
+  margin: 0;
+  padding: 0;
+}
 .el-header,
 .el-footer {
   background-color: #b3c0d1;
