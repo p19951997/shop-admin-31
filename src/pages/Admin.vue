@@ -12,7 +12,7 @@
 
       <el-main>
         <Mianbao/>
-        Main
+        <router-view></router-view>
       </el-main>
     </el-container>
 
@@ -26,6 +26,8 @@
   import Mianbao from '../components/Mianbao.vue'
 
 
+
+
 export default {
   data(){
     return {
@@ -35,7 +37,7 @@ export default {
   components:{
     Menu,
     Header,
-    Mianbao
+    Mianbao,
   },
   methods:{
     handleChangeShow(){
@@ -52,7 +54,7 @@ export default {
 }
 .el-header,
 .el-footer {
-  background-color: #b3c0d1;
+  background-color: #fff;
   color: #333;
   text-align: center;
   line-height: 60px;
@@ -69,7 +71,7 @@ export default {
   background-color: #e9eef3;
   color: #333;
   text-align: center;
-  line-height: 160px;
+  /* line-height: 160px; */
 }
 
 body > div > .el-container {

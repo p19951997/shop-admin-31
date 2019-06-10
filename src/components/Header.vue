@@ -23,6 +23,6 @@ export default {
 
 <style scoped>
     .arrow{
-        cursor: pointer;
+        cursor: pointer; 
     }
 </style>

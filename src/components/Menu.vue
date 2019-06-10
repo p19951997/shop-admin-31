@@ -20,11 +20,11 @@
       </template>
 
         <el-menu-item index="1-1">
-            <template slot="title">商品管理</template>
+            <router-link to="/admin/goods-list">商品管理</router-link>
         </el-menu-item>
 
         <el-menu-item index="1-2">
-            <template slot="title">栏目管理</template>
+            <router-link to="/admin/category-List">栏目管理</router-link>
         </el-menu-item>
     </el-submenu>
 
@@ -40,6 +40,10 @@ export default {
 <style scoped>
 .el-menu-vertical-demo {
   height: 100%;
+}
+.el-menu-vertical-demo a{
+  color: inherit;/* inherit继承父级样式 */
+  text-decoration: none;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
