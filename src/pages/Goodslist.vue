@@ -3,12 +3,20 @@
    <el-row type="flex" justify='space-between' class="goods-list-header">
       <div>
         <el-button>新增</el-button>
-        <el-button type="danger">删除</el-button>
+        <el-button type="danger" @click='handleDeleteMore'>删除</el-button>
       </div>
-      <div>
-         <el-input placeholder="请输入内容" class="input-with-select">
-           <el-button slot="append" icon="el-icon-search"></el-button>
-         </el-input>
+      <div class="input-search">
+          <!-- 绑定data中的searchValue -->
+          <el-input
+          placeholder="请输入内容"
+          class="input-with-select"
+          v-model="searchValue">
+            <el-button
+            slot="append"
+            icon="el-icon-search"
+            @click='handleSearch'>
+            </el-button>
+          </el-input>
       </div>
    </el-row>
    
@@ -60,7 +68,7 @@
         <el-button
           size="mini"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          @click="handleDelete(scope.row)">删除</el-button>
       </template>
     </el-table-column>
 
@@ -114,6 +122,7 @@ export default {
       }
     },
     methods: {
+      // 商品数据加载的封装
       getList(){
             // pageIndex: 当前的页面，会变化
             // pageSize：数据条数，会变化
@@ -123,28 +132,71 @@ export default {
           method:`GET`,
         }).then(res => {
           const data = res.data;
-          console.log(data);
+          // console.log(data);
+          // 获取商品数据
           this.tableData = data.message;
+          // console.log(this.tableData);
+          // 总条数
           this.total = data.totalcount
-          console.log(total);
-          console.log(goods);
+          // console.log(this.total);
           })
+      },
+      // 删除商品的封装
+      delList(goods){
+        this.$axios({
+          url:`http://localhost:8899/admin/goods/del/${goods}`,
+          method:'GET'
+        }).then(res => {
+          // 获取信息和状态 status===0位成功
+          const { message,status } = res.data
+          console.log(message);
+          console.log(status);
+          if( status === 0){
+            // 删除数据成功
+            this.$message.success(message)
+            this.getList()
+          }else{
+            // 删除失败
+            this.$message.error(message)
+          }
+        })
       },
       // 选择每一项触发
       handleSelectionChange(val){
-        console.log(val);
+        this.selectGoods = val
       },
       // 编辑
       handleEdit(goods) {
-        console.log(goods);
+        // console.log(goods);
+      },
+      // 关键字搜索
+      handleSearch(){
+        // 根据关键字搜索重新加载数据
+        this.getList()
       },
       // 删除
       handleDelete(goods) {
+        // 删除单个商品
+        // 获取id
+        const id = goods.id
         console.log(goods);
+        console.log(goods.id);
+        this.delList(id)
+      },
+      // 删除多个商品
+      handleDeleteMore(goods) {
+        // 获取多个id
+        const arr = this.selectGoods.map(v => {
+          return v.id
+        });
+        const ids = arr.join(',')
+        console.log(ids);
+        this.delList(ids)
       },
       // 多条数据切换
       handleSizeChange(val) {
         this.pageSize = val
+        this.getList()
         console.log(`每页 ${val} 条`);
       },
       // 页数切换
