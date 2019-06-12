@@ -13,7 +13,6 @@
    </el-row>
    
     <el-table
-    class="mytable"
     ref="multipleTable"
     :data="tableData"
     tooltip-effect="dark"
@@ -29,6 +28,9 @@
       label="标题"
       width="300">
       <template slot-scope="scope">
+          <!-- 自定义模板 -->
+          <!-- template的slot-scoped的值为变量名scope -->
+          <!-- scope.row相当于template的slot中的每一项对象 -->
           <el-row type="flex" align="middle">
             <img :src="scope.row.imgurl" class="goods-img">
             <div>
@@ -76,9 +78,9 @@
         @current-change="handleCurrentChange"
         :current-page="pageIndex"
         :page-sizes="[5, 10, 15, 20]"
-        :page-size="5"
+        :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="100">
+        :total="total">
       </el-pagination>
     </div>
 </div>
@@ -104,10 +106,31 @@ export default {
         //   sell_price: 800   
         // }
         ],
-        pageIndex: 1
+        selectGoods:[],// 选中的商品
+        pageSize:5,//每一页的条数
+        pageIndex:1,//默认当前页数，随着页数变化而变化
+        searchValue:'',//搜索关键字
+        total:0,//总也是
       }
     },
     methods: {
+      getList(){
+            // pageIndex: 当前的页面，会变化
+            // pageSize：数据条数，会变化
+            // searchValue：搜索关键字
+        this.$axios({
+          url:`http://localhost:8899/admin/goods/getlist?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}&searchvalue=${this.searchValue}`,
+          method:`GET`,
+        }).then(res => {
+          const data = res.data;
+          console.log(data);
+          this.tableData = data.message;
+          this.total = data.totalcount
+          console.log(total);
+          console.log(goods);
+          })
+      },
+      // 选择每一项触发
       handleSelectionChange(val){
         console.log(val);
       },
@@ -121,22 +144,19 @@ export default {
       },
       // 多条数据切换
       handleSizeChange(val) {
+        this.pageSize = val
         console.log(`每页 ${val} 条`);
       },
       // 页数切换
       handleCurrentChange(val) {
+        this.pageIndex = val
+        this.getList()
         console.log(`当前页: ${val}`);
-      }
+      },
+      
     },
     mounted(){
-      this.$axios({
-        url:`http://localhost:8899/admin/goods/getlist?pageIndex=1&pageSize=5&searchvalue=`,
-        method:`GET`,
-      }).then(res => {
-        const data = res.data;
-        this.tableData = data.message;
-        console.log(res);
-      })
+      this.getList()
     }
 }
 </script>
