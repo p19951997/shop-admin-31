@@ -14,6 +14,7 @@ import Admin from './pages/Admin.vue';
 
 import Goodslist from './pages/Goodslist.vue'
 import CategoryList from './pages/CategoryList.vue'
+import GoodsAdd from './pages/GoodsAdd.vue'
 
 import VueRouter from 'vue-router'
 
@@ -30,7 +31,8 @@ const routes = [
   { path:'/login',component:Login,meta:'登录' },
   { path:'/admin',component:Admin,meta:'后台管理',children:[
       { path:'goods-list',component:Goodslist,meta:'商品列表' },
-      { path:'category-List',component:CategoryList,meta:'栏目列表' }
+      { path:'category-List',component:CategoryList,meta:'栏目列表' },
+      { path:'goods-add',component:GoodsAdd,meta:'新增商品' }
   ]}
 ];
 

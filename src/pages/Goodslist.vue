@@ -2,7 +2,7 @@
 <div>
    <el-row type="flex" justify='space-between' class="goods-list-header">
       <div>
-        <el-button>新增</el-button>
+        <el-button @click='handleAdd'>新增</el-button>
         <el-button type="danger" @click='handleDeleteMore'>删除</el-button>
       </div>
       <div class="input-search">
@@ -164,6 +164,10 @@ export default {
       // 选择每一项触发
       handleSelectionChange(val){
         this.selectGoods = val
+      },
+      handleAdd(){
+        this.$router.push('/admin/goods-list')
+        console.log(123);
       },
       // 编辑
       handleEdit(goods) {
