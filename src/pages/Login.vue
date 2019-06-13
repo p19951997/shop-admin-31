@@ -68,7 +68,7 @@ export default {
                     method:'POST',
                     // 数据
                     data,
-                    whitCredentials:true
+                    withCredentials:true
                 }).then(res => {
                     // 解构并且赋值
                     const {message,status} = res.data;

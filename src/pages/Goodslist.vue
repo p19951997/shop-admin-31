@@ -166,7 +166,7 @@ export default {
         this.selectGoods = val
       },
       handleAdd(){
-        this.$router.push('/admin/goods-list')
+        this.$router.push('/admin/goods-add')
         console.log(123);
       },
       // 编辑
